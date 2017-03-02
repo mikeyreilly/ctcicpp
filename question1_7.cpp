@@ -3,7 +3,7 @@
 #include <string>
 #include <array>
 
-template <typename N>
+template <int N>
 void arrtest(std::array<int,N> a){
   for(auto e:a){
   std:cout << e << std::endl;
