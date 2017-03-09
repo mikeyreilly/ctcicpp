@@ -1,75 +1,55 @@
 #include <iostream>
 #include <string>
-#include <array>
 using std::cout;
 using std::endl;
 using std::string;
-using std::array;
 
 template<typename T>
-class Node{
-  T* value;
-  Node<T>* next;
-public:
-  Node(T* v, Node<T>* n): value(v), next(n){}
-  ~Node(){}
-  auto get_next(){
-    return next;
-  }
-  
-  auto get_value(){
-    return value;
-  }
+class  Node {
+  const T value;
+  const Node<T> *next;
+  public:
+  Node(T v, Node<T>* n) : value(v), next(n){};
+  const T getValue(){return value;}
+  Node<T>* getNext(){return next;}
 };
 
 template<typename T>
 class LinkedList{
-  Node<T>* head;
+  Node<T> *head; 
 public:
-  LinkedList() : head(NULL) {}
-  ~LinkedList(){
-    head = NULL;
+  LinkedList(){
+    head = NULL; 
   }
 
-  void add(T* v){
-    cout << "adding "<< *v << endl;
-    Node<T>* n = new Node<T>(v, head);
-    head = n;
-    auto nxt = head->get_next();
-    if (nxt!=NULL){
-      auto val=nxt->get_value();
-      cout << "next=" << *val << endl;}
-    
+  void addValue(T val){
+    head = new Node<T>(val, head);           
   }
 
-  Node<T>* get_head(){
+  T popValue(){
+    Node<T> *n = head;
+    T ret = n->value;
+
+    head = head->next;
+    delete n;
+    return ret;
+  }
+
+  Node<T>* getHead(){
     return head;
   }
-  
 };
 
-int main(){
-  LinkedList<string> n;
-  array<string,5> a {"one","two","three","four", "five"};
-  for(auto s:a){
-    n.add(&s);
+int main() {
+  LinkedList<string> list;
+
+  list.addValue("red");
+  list.addValue("green");
+  list.addValue("blue");
+  
+  for(Node<string>* c=list.getHead();c!=NULL;c=c->getNext()){
+    cout << c->getValue() << endl;
+    
   }
-
-  auto h = n.get_head();
-  auto hp = &h;
-  int i=0;
-  
-  while(true){
-    string* v=(*hp)->get_value();
-    cout << "v=" << *v << endl;
-    auto nx=(*hp)->get_next();
-    *hp = nx;
-    if(i++==3)break;
-  }
-  
-  
-
-
-  
   return 0;
 }

@@ -7,8 +7,8 @@ using std::array;
 using std::cout;
 using std::endl;
 
-std::array<int,32> convert_string(std::string s){
-  std::array<int,32> r {};
+array<int,32> convert_string(std::string s){
+  array<int,32> r {};
   auto convert_char=[](unsigned char c){return static_cast<int>(c);};
   std::transform(s.begin(),s.end(),r.begin(), convert_char);
   return r;
@@ -18,8 +18,8 @@ std::array<int,32> convert_string(std::string s){
 codes of a piece of text.
 */
 
-std::array<std::array<int,32>,32> int_matrix(){
-  std::array<std::string,32> l{
+array<array<int,32>,32> int_matrix(){
+  array<std::string,32> l{
     "No sooner had the warm liquid mi",
       "xed with the crumbs touched my p",
       "alate than a shudder ran through",
@@ -53,7 +53,7 @@ std::array<std::array<int,32>,32> int_matrix(){
       " sight of the little madeleine h",
       "ad recalled nothing to my mind b"
       };
-  std::array<std::array<int,32>,32> r {};
+  array<array<int,32>,32> r {};
   std::transform(l.begin(),l.end(),r.begin(), convert_string);
   return r;
 }
@@ -83,7 +83,7 @@ void rotate_int_matrix(array<array<int,N>,N>& m){
 }
 
 int main (){
-  std::array<std::array<int,32>,32> m = int_matrix();
+  array<array<int,32>,32> m = int_matrix();
   rotate_int_matrix(m);
   print_int_matrix_as_strings(m);
   cout << endl;
